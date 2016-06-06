@@ -73,6 +73,6 @@ getUrls().then((links) => {
   //.reduce((pv,cv) => pv.then(() => cv))
   .then(() => {
       console.log('done!');
-			console.log(cantVideosDownloaded' videos has been download under ' + outputFolder + ' folder');
+			console.log(cantVideosDownloaded + ' videos has been download under ' + outputFolder + ' folder');
   });
 })
