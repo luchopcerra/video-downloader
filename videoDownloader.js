@@ -17,6 +17,11 @@ if (process.argv.length >= 3 && process.argv[2]){
 	console.warn('For example: \nnode videoDownloader.js miCurso.txt miCurso \n');
 }
 
+try {
+	fs.mkdirSync(outputFolder);
+} catch (e) {
+	console.error(e);
+}
 
 var links = [];
 var getUrls = () => {
@@ -31,15 +36,11 @@ var getUrls = () => {
   });
 };
 
+var cantVideosDownloaded = 0;
 var download = function (url, filename) {
+		cantVideosDownloaded++;
     return new Promise((resolve, reject)=>{
-				try {
-					fs.mkdirSync(outputFolder);
-				} catch (e) {
-					console.error(e);
-				} finally {
 
-				}				
         var file = fs.createWriteStream(filename);
         let partialContent = 0;
         let fileSize;
@@ -71,6 +72,7 @@ getUrls().then((links) => {
   links.reduce((chain,url,index) => chain.then(() => download(url, './' + outputFolder + '/' + index + '.bin')),  Promise.resolve())
   //.reduce((pv,cv) => pv.then(() => cv))
   .then(() => {
-      console.log('done!')
+      console.log('done!');
+			console.log(cantVideosDownloaded' videos has been download under ' + outputFolder + ' folder');
   });
 })
