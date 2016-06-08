@@ -88,6 +88,7 @@ if (cluster.isMaster) {
 			  //.reduce((pv,cv) => pv.then(() => cv))
 			  .then(() => {
 			      console.log('done!');
+						worker.kill();
 			  });
 			});
 		});
